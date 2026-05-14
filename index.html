@@ -1,0 +1,257 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Jannis · AI Operations Wegweiser v3</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root{color-scheme:dark; --cyan:#22d3ee; --teal:#2dd4bf; --violet:#a78bfa; --amber:#fbbf24; --rose:#fb7185;}
+    html{scroll-behavior:smooth}
+    body{
+      min-height:100vh;
+      background:
+        radial-gradient(circle at 8% 8%, rgba(45,212,191,.34) 0, transparent 26%),
+        radial-gradient(circle at 86% 0%, rgba(167,139,250,.26) 0, transparent 28%),
+        radial-gradient(circle at 65% 92%, rgba(251,191,36,.16) 0, transparent 32%),
+        linear-gradient(135deg,#020617 0%,#06101f 42%,#020617 100%);
+      color:#f8fafc;
+    }
+    .grain:before{content:"";position:fixed;inset:0;pointer-events:none;opacity:.08;background-image:url('data:image/svg+xml,%3Csvg viewBox="0 0 220 220" xmlns="http://www.w3.org/2000/svg"%3E%3Cfilter id="n"%3E%3CfeTurbulence type="fractalNoise" baseFrequency="0.9" numOctaves="3" stitchTiles="stitch"/%3E%3C/filter%3E%3Crect width="100%25" height="100%25" filter="url(%23n)" opacity="0.5"/%3E%3C/svg%3E')}
+    .glass{background:linear-gradient(145deg, rgba(15,23,42,.78), rgba(2,6,23,.62));backdrop-filter:blur(18px);border:1px solid rgba(148,163,184,.16);box-shadow:0 22px 60px rgba(0,0,0,.32)}
+    .soft{background:rgba(15,23,42,.58);border:1px solid rgba(148,163,184,.13)}
+    .card{background:linear-gradient(145deg, rgba(30,41,59,.72), rgba(15,23,42,.44));border:1px solid rgba(148,163,184,.14)}
+    .hot{background:linear-gradient(135deg, rgba(45,212,191,.18), rgba(56,189,248,.12), rgba(167,139,250,.12));border:1px solid rgba(45,212,191,.30)}
+    .gold{background:linear-gradient(135deg, rgba(251,191,36,.16), rgba(251,113,133,.08));border:1px solid rgba(251,191,36,.28)}
+    .danger{background:linear-gradient(135deg, rgba(251,113,133,.15), rgba(127,29,29,.08));border:1px solid rgba(251,113,133,.30)}
+    .accent{background:linear-gradient(90deg,var(--teal),var(--cyan),var(--violet))}
+    .tab-active{background:linear-gradient(135deg,rgba(45,212,191,.24),rgba(167,139,250,.16));border-color:rgba(45,212,191,.62);color:white;box-shadow:0 10px 30px rgba(45,212,191,.10)}
+    .pill{border:1px solid rgba(148,163,184,.20);background:rgba(2,6,23,.38)}
+    .fade{animation:fade .22s ease-out}.float{animation:float 7s ease-in-out infinite}
+    @keyframes fade{from{opacity:.1;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+    @keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+    input[type=checkbox]{width:1.08rem;height:1.08rem;accent-color:#2dd4bf;flex-shrink:0;margin-top:.16rem}
+    .checkline:has(input:checked){opacity:.66}.checkline:has(input:checked) span{text-decoration:line-through;text-decoration-color:rgba(45,212,191,.8)}
+    textarea{resize:vertical}.mono{font-variant-numeric:tabular-nums}.glow{box-shadow:0 0 60px rgba(45,212,191,.14)}
+  </style>
+</head>
+<body class="grain">
+  <div class="max-w-7xl mx-auto px-4 py-6 lg:py-10">
+    <header class="glass rounded-[2rem] p-6 lg:p-9 mb-6 overflow-hidden relative">
+      <div class="absolute -right-20 -top-20 w-64 h-64 rounded-full bg-teal-400/20 blur-3xl"></div>
+      <div class="absolute right-20 bottom-0 w-72 h-72 rounded-full bg-violet-400/10 blur-3xl"></div>
+      <div class="relative grid lg:grid-cols-[1fr_360px] gap-8 items-end">
+        <div>
+          <p class="text-teal-300 font-black tracking-[.22em] uppercase text-xs">Persönliche Mini-App · v3</p>
+          <h1 class="mt-3 text-4xl lg:text-7xl font-black tracking-tight leading-[.95]">Ich baue mir den Weg in AI Operations.</h1>
+          <p class="mt-5 text-lg lg:text-xl text-slate-300 max-w-4xl">Nicht als Theorie. Nicht als Riesensystem. Ich baue erst einen sichtbaren Prototypen, beweise mir dass ich es kann und verwandle ihn dann in einen persönlichen 5-Punkte-Pitch für echte Betriebe.</p>
+          <div class="mt-6 flex flex-wrap gap-2 text-sm">
+            <span class="pill rounded-full px-3 py-1">Betriebsgefühl</span>
+            <span class="pill rounded-full px-3 py-1">KI-Steuerung</span>
+            <span class="pill rounded-full px-3 py-1">Probleme erkennen</span>
+            <span class="pill rounded-full px-3 py-1">sichtbare Demos</span>
+            <span class="pill rounded-full px-3 py-1">kleine Slices</span>
+          </div>
+        </div>
+        <div class="hot rounded-3xl p-5 glow float">
+          <p class="text-slate-400 text-sm">Mein Leitsatz</p>
+          <p class="mt-2 text-2xl font-black">Erst sichtbar machen. Dann ansprechen. Dann klein verkaufen.</p>
+          <p class="mt-3 text-slate-300 text-sm">Ich muss nicht direkt eine Agentur sein. Ich brauche einen echten Prototypen der zeigt: Ich sehe das Problem und kann einen ersten funktionierenden Ausschnitt bauen.</p>
+        </div>
+      </div>
+    </header>
+
+    <nav class="glass rounded-2xl p-2 mb-6 flex flex-wrap gap-2 sticky top-2 z-20">
+      <button data-tab="overview" class="tab tab-active rounded-xl px-4 py-2 border border-transparent text-sm font-bold">Übersicht</button>
+      <button data-tab="profile" class="tab rounded-xl px-4 py-2 border border-transparent text-sm font-bold text-slate-300">Mein Profil</button>
+      <button data-tab="prototypes" class="tab rounded-xl px-4 py-2 border border-transparent text-sm font-bold text-slate-300">Prototypen</button>
+      <button data-tab="pitch" class="tab rounded-xl px-4 py-2 border border-transparent text-sm font-bold text-slate-300">5-Punkte-Pitch</button>
+      <button data-tab="offers" class="tab rounded-xl px-4 py-2 border border-transparent text-sm font-bold text-slate-300">Angebote</button>
+      <button data-tab="projects" class="tab rounded-xl px-4 py-2 border border-transparent text-sm font-bold text-slate-300">Projektliste</button>
+      <button data-tab="sprint" class="tab rounded-xl px-4 py-2 border border-transparent text-sm font-bold text-slate-300">Sprint</button>
+      <button data-tab="audit" class="tab rounded-xl px-4 py-2 border border-transparent text-sm font-bold text-slate-300">Audit</button>
+      <button data-tab="scripts" class="tab rounded-xl px-4 py-2 border border-transparent text-sm font-bold text-slate-300">Texte</button>
+    </nav>
+
+    <main>
+      <section id="overview" class="panel fade grid lg:grid-cols-3 gap-6">
+        <div class="glass rounded-[2rem] p-6 lg:col-span-2">
+          <div class="flex items-start justify-between gap-4">
+            <div>
+              <h2 class="text-3xl font-black">Was ich hier eigentlich mache</h2>
+              <p class="mt-3 text-slate-300 text-lg">Ich übersetze mein Menschen-, Betriebs- und Technikgefühl in kleine sichtbare Lösungen. Nicht in ein perfektes Unternehmen auf Papier, sondern in echte Prototypen die ein Betrieb direkt versteht.</p>
+            </div>
+            <div class="hidden lg:block text-5xl">🧭</div>
+          </div>
+          <div class="grid md:grid-cols-4 gap-4 mt-6">
+            <div class="card rounded-2xl p-4"><p class="text-3xl">🧠</p><h3 class="font-black mt-2">Ich sehe Muster</h3><p class="text-sm text-slate-400 mt-1">Reibung, Chaos, Wiederholungen und unausgesprochene Probleme.</p></div>
+            <div class="card rounded-2xl p-4"><p class="text-3xl">🛠️</p><h3 class="font-black mt-2">Ich baue Slices</h3><p class="text-sm text-slate-400 mt-1">Nicht alles. Einen sichtbaren Ausschnitt der Wirkung zeigt.</p></div>
+            <div class="card rounded-2xl p-4"><p class="text-3xl">🏢</p><h3 class="font-black mt-2">Ich kenne Betriebe</h3><p class="text-sm text-slate-400 mt-1">Praxis, Gastro, Hotel, Business und echtes operatives Chaos.</p></div>
+            <div class="card rounded-2xl p-4"><p class="text-3xl">🤖</p><h3 class="font-black mt-2">Ich steuere KI</h3><p class="text-sm text-slate-400 mt-1">Ich muss nicht alles solo coden. Ich muss richtig führen und prüfen.</p></div>
+          </div>
+          <div class="hot rounded-3xl p-5 mt-6">
+            <h3 class="text-xl font-black text-teal-100">Der wichtigste Shift</h3>
+            <p class="mt-2 text-slate-200">Ich gehe nicht raus mit „Ich baue euch ein Riesensystem“. Ich gehe raus mit: <b>Ich habe euer Problem gesehen und hier ist ein kleiner Prototyp wie es besser aussehen könnte.</b></p>
+          </div>
+        </div>
+
+        <aside class="glass rounded-[2rem] p-6">
+          <h2 class="text-2xl font-black">Dashboard</h2>
+          <p class="text-slate-400 mt-1 text-sm">Nur Dinge die wirklich zählen.</p>
+          <div class="mt-5 soft rounded-2xl p-4">
+            <p class="text-slate-400 text-sm">Gesamtfortschritt</p>
+            <div class="h-4 rounded-full bg-slate-900 overflow-hidden mt-3"><div id="progress" class="accent h-full w-0 transition-all duration-300"></div></div>
+            <p id="progressText" class="mt-3 font-black text-lg mono">0 erledigt</p>
+          </div>
+          <div class="mt-4 space-y-3" id="overviewChecklist">
+            <label class="checkline soft rounded-xl p-3 flex gap-3"><input type="checkbox" data-key="o1"><span>Ich wähle einen Zielbetrieb oder Beispielbetrieb</span></label>
+            <label class="checkline soft rounded-xl p-3 flex gap-3"><input type="checkbox" data-key="o2"><span>Ich wähle einen Mini-Prototypen</span></label>
+            <label class="checkline soft rounded-xl p-3 flex gap-3"><input type="checkbox" data-key="o3"><span>Ich baue eine Demo ohne Backend</span></label>
+            <label class="checkline soft rounded-xl p-3 flex gap-3"><input type="checkbox" data-key="o4"><span>Ich baue daraus eine 5-Punkte-Pitchpage</span></label>
+            <label class="checkline soft rounded-xl p-3 flex gap-3"><input type="checkbox" data-key="o5"><span>Ich frage erst nach Interesse, nicht nach Vertrauen in mich</span></label>
+          </div>
+          <button data-reset="all" class="mt-5 w-full rounded-xl py-3 font-black bg-slate-800 hover:bg-slate-700">Alles zurücksetzen</button>
+        </aside>
+      </section>
+
+      <section id="profile" class="panel hidden fade grid lg:grid-cols-2 gap-6">
+        <div class="glass rounded-[2rem] p-6">
+          <h2 class="text-3xl font-black">Mein Profil ausführlich</h2>
+          <p class="mt-4 text-xl text-teal-100 font-bold">Ich bin kein klassischer Arbeiter und auch kein fertiger Senior-Entwickler. Mein Profil liegt dazwischen: Ich sehe echte Betriebsprobleme, verstehe Menschen und kann mit KI sichtbare Lösungen bauen.</p>
+          <div class="mt-6 space-y-4">
+            <div class="card rounded-2xl p-4"><h3 class="font-black">Was ich wirklich kann</h3><p class="mt-1 text-slate-300">Ich erkenne wo Abläufe klemmen. Wo Kunden warten. Wo Mitarbeiter immer wieder dieselben Fragen beantworten. Wo Wissen nur im Kopf einzelner Personen liegt. Wo schlechte Erreichbarkeit Bewertungen ruiniert. Wo ein kleines KI-System sofort Ordnung schaffen könnte.</p></div>
+            <div class="card rounded-2xl p-4"><h3 class="font-black">Warum mein Umfeld zählt</h3><p class="mt-1 text-slate-300">Ich kenne Praxis, Gastro, Hotel, Finance und Unternehmerwelt nicht nur aus YouTube. Ich habe diese Welten durch Familie und Umfeld erlebt. Dadurch sehe ich nicht nur Tools, sondern Betrieb, Stress, Kunden, Verantwortung und Chaos.</p></div>
+            <div class="card rounded-2xl p-4"><h3 class="font-black">Meine technische Linie</h3><p class="mt-1 text-slate-300">Ich war schon früh der Typ der eigene Lösungen bauen wollte: PCs, Games, Hour of Code, kleine Automatisierungen, Klick-Bots mit Koordinaten, eigene Workarounds. Heute ist KI der Hebel der genau diesen Reflex viel stärker macht.</p></div>
+            <div class="gold rounded-2xl p-4"><h3 class="font-black text-amber-100">Mein wunder Punkt</h3><p class="mt-1 text-slate-200">Ich sehe zu schnell das große System. Dann wird aus einem kleinen Assistenten plötzlich ein vollständiges Plattform-Projekt. Deshalb brauche ich einen Rahmen der mich zwingt: erst Slice, dann Pitch, dann Pilot.</p></div>
+          </div>
+        </div>
+        <div class="glass rounded-[2rem] p-6">
+          <h2 class="text-3xl font-black">Meine Positionierung</h2>
+          <div class="hot rounded-3xl p-5 mt-5"><p class="text-slate-400 text-sm">Ein Satz</p><p class="mt-2 text-2xl font-black">Ich baue kleine sichtbare KI-Prototypen für reale Betriebsprobleme und mache daraus machbare Mini-Piloten.</p></div>
+          <div class="grid md:grid-cols-2 gap-4 mt-5">
+            <div class="card rounded-2xl p-4"><h3 class="font-black">Ich starte nicht mit</h3><p class="text-slate-400 mt-1">„Ich automatisiere euch alles.“</p></div>
+            <div class="card rounded-2xl p-4"><h3 class="font-black">Ich starte mit</h3><p class="text-slate-400 mt-1">„Ich habe gesehen wo es hakt und hier ist ein kleiner Prototyp.“</p></div>
+          </div>
+          <div class="danger rounded-2xl p-5 mt-5"><h3 class="font-black text-rose-100">Nicht mehr warten bis Eltern / andere mich ernst nehmen</h3><p class="mt-2 text-slate-200">Der Beweis ist nicht Diskussion. Der Beweis ist ein sichtbarer Prototyp. Wenn ein Betrieb auf der Seite sieht „Ah, der hat unser Problem verstanden“, ist das stärker als jede Erklärung.</p></div>
+        </div>
+      </section>
+
+      <section id="prototypes" class="panel hidden fade grid lg:grid-cols-3 gap-6">
+        <div class="glass rounded-[2rem] p-6 lg:col-span-3">
+          <h2 class="text-3xl font-black">Ich bin am Anfang einer der Prototypen baut</h2>
+          <p class="mt-3 text-slate-300 text-lg">Das ist die sicherste Identität am Start. Ich muss nicht direkt Berater, Agentur oder Komplettanbieter sein. Ich baue einen kleinen sichtbaren Ausschnitt und prüfe damit ob ich es kann und ob der Betrieb reagiert.</p>
+        </div>
+        <div class="hot rounded-3xl p-5"><h3 class="text-xl font-black">1 · Beweis für mich</h3><p class="mt-2 text-slate-200">Ich baue eine Demo in HTML/Tailwind mit Fake-Daten oder öffentlichen Infos. Ich sehe sofort: Kann ich den Use Case visualisieren?</p></div>
+        <div class="hot rounded-3xl p-5"><h3 class="text-xl font-black">2 · Beweis für den Betrieb</h3><p class="mt-2 text-slate-200">Der Betrieb sieht nicht „KI bla bla“, sondern seinen eigenen Schmerz und eine mögliche Lösung in einer Seite.</p></div>
+        <div class="hot rounded-3xl p-5"><h3 class="text-xl font-black">3 · Schutz vor Riesenscope</h3><p class="mt-2 text-slate-200">Wenn die Demo nur ein Slice ist, kann ich danach sauber sagen: Umsetzung nur als begrenzter Mini-Pilot.</p></div>
+        <div class="glass rounded-[2rem] p-6 lg:col-span-3">
+          <h3 class="text-2xl font-black">Prototyp-Regeln</h3>
+          <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-4 mt-5">
+            <div class="card rounded-2xl p-4"><h4 class="font-black">Kein Login</h4><p class="text-sm text-slate-400 mt-1">Am Anfang kein Account-System.</p></div>
+            <div class="card rounded-2xl p-4"><h4 class="font-black">Keine echten Kundendaten</h4><p class="text-sm text-slate-400 mt-1">Fake-Daten oder öffentliche Infos.</p></div>
+            <div class="card rounded-2xl p-4"><h4 class="font-black">Ein Workflow</h4><p class="text-sm text-slate-400 mt-1">Eingabe → Sortierung → Ausgabe.</p></div>
+            <div class="card rounded-2xl p-4"><h4 class="font-black">Eine Seite</h4><p class="text-sm text-slate-400 mt-1">Pitch + Demo + Angebot in einem.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section id="pitch" class="panel hidden fade grid lg:grid-cols-5 gap-6">
+        <div class="glass rounded-[2rem] p-6 lg:col-span-2">
+          <h2 class="text-3xl font-black">Mein 5-Punkte-Pitch</h2>
+          <p class="mt-3 text-slate-300">Das ist der Kern. Ich baue pro Betrieb eine persönliche Singlepage. Nicht generisch. Nicht „Sehr geehrte Damen und Herren“. Sondern: Ich habe euch gesehen, ich habe ein Problem erkannt und ich zeige euch wie es besser aussehen könnte.</p>
+          <div class="gold rounded-2xl p-4 mt-5"><p class="font-black text-amber-100">Wichtig</p><p class="mt-1 text-slate-200">Das ist kein Anschreiben mit Hoffnung. Das ist ein sichtbarer Beweis.</p></div>
+        </div>
+        <div class="lg:col-span-3 grid gap-4">
+          <div class="card rounded-2xl p-5"><h3 class="font-black text-xl">1 · Ich zeige dass ich mich mit dem Betrieb beschäftigt habe</h3><p class="text-slate-400 mt-1">Name, Branche, sichtbarer Kontext, was sie anbieten, was online auffällt.</p></div>
+          <div class="card rounded-2xl p-5"><h3 class="font-black text-xl">2 · Ich identifiziere echte Online-Probleme</h3><p class="text-slate-400 mt-1">Keine Webseite, veraltete Webseite, schlechte Erreichbarkeit, Telefonprobleme in Bewertungen, unklare Infos, fehlende Automatisierung.</p></div>
+          <div class="card rounded-2xl p-5"><h3 class="font-black text-xl">3 · Honey Pot: So könnte es aussehen</h3><p class="text-slate-400 mt-1">Eine schöne Vorschau die sofort Interesse macht: moderner Ablauf, KI-Hilfe, Sortierung, FAQ, interne Übersicht.</p></div>
+          <div class="card rounded-2xl p-5"><h3 class="font-black text-xl">4 · Ich zeige die Lösung real in der HTML</h3><p class="text-slate-400 mt-1">Zum Beispiel ein Anfrage-Sortierer, Bewertungsanalyse, Gäste-FAQ, Patienteninfo-Assistent oder internes Mini-Dashboard.</p></div>
+          <div class="card rounded-2xl p-5"><h3 class="font-black text-xl">5 · Ich mache ein klares kleines Angebot</h3><p class="text-slate-400 mt-1">„Wenn das interessant ist, kann ich daraus einen kleinen Mini-Pilot machen. Erst begrenzt, dann schauen wir weiter.“</p></div>
+        </div>
+      </section>
+
+      <section id="offers" class="panel hidden fade grid lg:grid-cols-2 gap-6">
+        <div class="glass rounded-[2rem] p-6 lg:col-span-2">
+          <h2 class="text-3xl font-black">Angebote — neu gedacht</h2>
+          <p class="mt-3 text-slate-300 text-lg">Am Anfang verkaufe ich nicht „Beratung“ als abstraktes Wort. Ich verkaufe sichtbar gemachte Klarheit. Die Reihenfolge ist: <b>Prototyp → persönlicher Pitch → Gespräch → Audit → Mini-Pilot</b>.</p>
+        </div>
+        <div class="hot rounded-3xl p-6"><p class="text-sm text-teal-200 font-black uppercase tracking-widest">Stufe 0</p><h3 class="text-2xl font-black mt-2">Persönlicher Prototyp</h3><p class="mt-3 text-slate-200">Ich baue ohne Auftrag eine kleine Demo, basierend auf öffentlich sichtbaren Problemen oder naheliegenden Betriebsabläufen. Ziel: Ich sehe ob ich es kann und habe etwas das man anschauen kann.</p><p class="mt-4 text-slate-400 text-sm">Preis: keiner. Das ist mein Beweisstück.</p></div>
+        <div class="hot rounded-3xl p-6"><p class="text-sm text-teal-200 font-black uppercase tracking-widest">Stufe 1</p><h3 class="text-2xl font-black mt-2">Persönliche 5-Punkte-Pitchpage</h3><p class="mt-3 text-slate-200">Ich mache daraus eine Singlepage für einen Betrieb: Ich habe euch gesehen → ich habe Probleme erkannt → so könnte es aussehen → hier ist ein Mini-Demo-Slice → meldet euch wenn das interessant ist.</p><p class="mt-4 text-slate-400 text-sm">Ziel: keine Zahlung, sondern Antwort / Gespräch.</p></div>
+        <div class="glass rounded-3xl p-6"><p class="text-sm text-violet-200 font-black uppercase tracking-widest">Stufe 2</p><h3 class="text-2xl font-black mt-2">Mini-Audit / Potenzialanalyse</h3><p class="mt-3 text-slate-300">Wenn Interesse da ist, analysiere ich den echten Ablauf. Ich stelle Fragen, grenze Risiken ab und finde den kleinsten sinnvollen Pilot. Das kann kostenlos als Einstieg laufen oder für 49–149 € bezahlt werden.</p><p class="mt-4 text-slate-400 text-sm">Ergebnis: 1 Seite mit Problem, Hebeln, Mini-Pilot-Vorschlag und Grenzen.</p></div>
+        <div class="glass rounded-3xl p-6"><p class="text-sm text-violet-200 font-black uppercase tracking-widest">Stufe 3</p><h3 class="text-2xl font-black mt-2">Mini-Pilot</h3><p class="mt-3 text-slate-300">Erst jetzt baue ich für Geld. Aber nur einen glasklaren Ausschnitt: ein Sortierungssystem, FAQ-Assistent, Bewertungsantwort-Helfer, internes Wiki oder Anfrage-Workflow.</p><p class="mt-4 text-slate-400 text-sm">Preisidee: 250–750 € je nach Scope. Anzahlung erst hier sinnvoll, nicht beim unklaren Wunsch.</p></div>
+        <div class="danger rounded-3xl p-6 lg:col-span-2"><h3 class="text-2xl font-black text-rose-100">Rote Linie</h3><p class="mt-2 text-slate-200">Wenn ich nicht in einem Satz sagen kann was ich baue, verkaufe ich es nicht. Dann ist es zurück auf Audit oder Demo. Keine Anzahlungen auf Nebel.</p></div>
+      </section>
+
+      <section id="projects" class="panel hidden fade grid lg:grid-cols-3 gap-6">
+        <div class="glass rounded-[2rem] p-6 lg:col-span-3"><h2 class="text-3xl font-black">Vollständige Projektliste</h2><p class="mt-3 text-slate-300">Nicht alles bauen. Das ist ein Menü. Ich wähle einen Mini-Slice.</p></div>
+        <div class="card rounded-3xl p-5"><h3 class="font-black text-xl">KI-Rezeptionshilfe für Praxis</h3><p class="text-slate-400 mt-2">Patientenfragen, Vorbereitung, Öffnungszeiten, Hinweise, Terminlogik.</p></div>
+        <div class="card rounded-3xl p-5"><h3 class="font-black text-xl">WhatsApp-/Termin-Vorqualifizierung</h3><p class="text-slate-400 mt-2">Anfragen sortieren, fehlende Infos abfragen, Übergabe an Mensch.</p></div>
+        <div class="card rounded-3xl p-5"><h3 class="font-black text-xl">AI-FAQ für Patienten/Kunden</h3><p class="text-slate-400 mt-2">Wiederkehrende Fragen reduzieren ohne falsche Versprechen.</p></div>
+        <div class="card rounded-3xl p-5"><h3 class="font-black text-xl">Website-Probleme sichtbar machen</h3><p class="text-slate-400 mt-2">Fehlende/veraltete Webseite, unklare Infos, schlechte Erreichbarkeit als Pitch-Hebel.</p></div>
+        <div class="card rounded-3xl p-5"><h3 class="font-black text-xl">Bewertungsanalyse</h3><p class="text-slate-400 mt-2">Google-Bewertungen clustern: Telefon, Wartezeit, Service, Missverständnisse.</p></div>
+        <div class="card rounded-3xl p-5"><h3 class="font-black text-xl">Bewertungsantwort-Assistent</h3><p class="text-slate-400 mt-2">Antwortvorschläge mit Ton, Kulanz und Eskalation an Mensch.</p></div>
+        <div class="card rounded-3xl p-5"><h3 class="font-black text-xl">Internes Mitarbeiter-Wiki</h3><p class="text-slate-400 mt-2">Einarbeitung, Standards, Zuständigkeiten, häufige Fragen.</p></div>
+        <div class="card rounded-3xl p-5"><h3 class="font-black text-xl">Wissens-/Ablaufsystem</h3><p class="text-slate-400 mt-2">Betriebswissen in durchsuchbare Antworten und Checklisten verwandeln.</p></div>
+        <div class="card rounded-3xl p-5"><h3 class="font-black text-xl">Schicht-/Orga-Assistenz</h3><p class="text-slate-400 mt-2">Tagesnotizen, Aufgaben, Übergaben, To-dos.</p></div>
+        <div class="card rounded-3xl p-5"><h3 class="font-black text-xl">Hotel/Gastro-Gästeassistent</h3><p class="text-slate-400 mt-2">Reservierungen, Öffnungszeiten, Speisekarte, Gäste-FAQ.</p></div>
+        <div class="card rounded-3xl p-5"><h3 class="font-black text-xl">Anfrage-Sortierer</h3><p class="text-slate-400 mt-2">E-Mails/WhatsApp/Forms nach Thema, Dringlichkeit und nächstem Schritt sortieren.</p></div>
+        <div class="card rounded-3xl p-5"><h3 class="font-black text-xl">Dokumenten-/Ablaufstruktur</h3><p class="text-slate-400 mt-2">PDFs, Formulare, interne Dokumente in Zusammenfassungen/Checklisten übersetzen.</p></div>
+        <div class="hot rounded-3xl p-6 lg:col-span-3"><h3 class="text-xl font-black">Empfohlene erste 3</h3><p class="mt-2 text-slate-200">1. Bewertungsanalyse + Erreichbarkeitsproblem · 2. Anfrage-Sortierer · 3. AI-FAQ. Diese drei sind sichtbar, schnell zu prototypen und verkaufen kein zu riskantes Backend.</p></div>
+      </section>
+
+      <section id="sprint" class="panel hidden fade grid lg:grid-cols-2 gap-6">
+        <div class="glass rounded-[2rem] p-6"><h2 class="text-3xl font-black">Sprint: schnell aber nicht chaotisch</h2><p class="mt-3 text-slate-300">Du denkst nicht in Wochen. Passt. Dann ist das hier ein 2–3 Tages-Sprint mit Prototyp am ersten Tag.</p>
+          <div class="mt-5 space-y-3">
+            <label class="checkline soft rounded-xl p-3 flex gap-3"><input type="checkbox" data-key="s1"><span><b>Heute · 30 Min:</b> Zielbetrieb oder Beispielbetrieb wählen</span></label>
+            <label class="checkline soft rounded-xl p-3 flex gap-3"><input type="checkbox" data-key="s2"><span><b>Heute · 45 Min:</b> Online-Probleme sammeln: Webseite, Bewertungen, Erreichbarkeit, Infos</span></label>
+            <label class="checkline soft rounded-xl p-3 flex gap-3"><input type="checkbox" data-key="s3"><span><b>Heute · 90–180 Min:</b> Prototyp in HTML/Tailwind bauen</span></label>
+            <label class="checkline soft rounded-xl p-3 flex gap-3"><input type="checkbox" data-key="s4"><span><b>Heute:</b> 5-Punkte-Pitchpage daraus machen</span></label>
+            <label class="checkline soft rounded-xl p-3 flex gap-3"><input type="checkbox" data-key="s5"><span><b>Morgen:</b> Audit-Fragen + Mini-Pilot-Grenzen schreiben</span></label>
+            <label class="checkline soft rounded-xl p-3 flex gap-3"><input type="checkbox" data-key="s6"><span><b>Morgen:</b> eine Testperson / einen Betrieb auswählen</span></label>
+            <label class="checkline soft rounded-xl p-3 flex gap-3"><input type="checkbox" data-key="s7"><span><b>Danach:</b> senden oder persönlich zeigen</span></label>
+          </div>
+        </div>
+        <div class="glass rounded-[2rem] p-6"><h2 class="text-3xl font-black">Anti-Ausartungs-Regel</h2><p class="mt-3 text-slate-300">Wenn ich ein Backend, Login, echte Kundendaten, Rechnungslogik oder eigene Plattform brauche, bin ich zu groß geworden.</p><div class="danger rounded-2xl p-5 mt-5"><h3 class="font-black text-rose-100">Stop-Satz</h3><p class="mt-2 text-slate-200">Ich baue gerade keinen Betrieb. Ich baue einen Beweis.</p></div><button data-reset="all" class="mt-6 w-full rounded-xl py-3 font-black bg-slate-800 hover:bg-slate-700">Alle Checklisten zurücksetzen</button></div>
+      </section>
+
+      <section id="audit" class="panel hidden fade grid lg:grid-cols-2 gap-6">
+        <div class="glass rounded-[2rem] p-6"><h2 class="text-3xl font-black">Was ich mit Audit meine</h2><p class="mt-3 text-slate-300">Ein Audit ist noch nicht das Projekt. Es ist die Diagnose des Betriebsproblems. Ich prüfe: Was ist wirklich los, was darf KI, was darf KI nicht, welcher Mini-Pilot wäre sicher?</p><div class="hot rounded-2xl p-5 mt-5"><h3 class="font-black">Kann ein Audit Geld bringen?</h3><p class="mt-2 text-slate-200">Ja. Ein Audit kann eine erste kleine bezahlte Leistung sein. Aber am Anfang darf es auch kostenlos/günstig sein um Vertrauen und Referenz zu bekommen.</p></div></div>
+        <div class="glass rounded-[2rem] p-6"><h2 class="text-3xl font-black">Audit-Fragen</h2><ol class="mt-5 space-y-2 list-decimal list-inside text-slate-300"><li>Wo verlieren Kunden oder Mitarbeiter Zeit?</li><li>Welche Fragen kommen immer wieder?</li><li>Welche Bewertungen oder Beschwerden zeigen Muster?</li><li>Wo liegen die Antworten heute?</li><li>Was darf nur ein Mensch entscheiden?</li><li>Was wäre ein sicherer Mini-Pilot?</li><li>Woran merkt man nach 2 Wochen dass es hilft?</li></ol><div class="card rounded-2xl p-4 mt-5"><h3 class="font-black">Mini-Pilot ≠ Audit</h3><p class="text-slate-400 mt-1">Audit ist prüfen und planen. Mini-Pilot ist bauen. Anzahlung eher beim Mini-Pilot, nicht beim unklaren Wunsch.</p></div></div>
+      </section>
+
+      <section id="scripts" class="panel hidden fade grid lg:grid-cols-2 gap-6">
+        <div class="glass rounded-[2rem] p-6"><h2 class="text-3xl font-black">Nachricht nach Pitchpage</h2><p class="mt-2 text-slate-400">Mehr Jannis, weniger Business-Sprech.</p><textarea class="mt-4 w-full h-64 rounded-2xl bg-slate-950/80 border border-slate-700 p-4 text-slate-100 text-sm">Hey, ich habe mir euren Betrieb online mal angeschaut und dabei ein paar Stellen gesehen wo KI oder kleine Automationen vielleicht wirklich helfen könnten.
+
+Ich habe dazu eine kleine Demo-Seite gebaut damit man es nicht nur abstrakt erklären muss.
+
+Es geht nicht um ein riesen IT-Projekt sondern erstmal nur um einen kleinen sichtbaren Ausschnitt. Wenn das interessant ist kann ich euch kurz zeigen was ich meine.</textarea></div>
+        <div class="glass rounded-[2rem] p-6"><h2 class="text-3xl font-black">Prompt für KI</h2><textarea class="mt-4 w-full h-64 rounded-2xl bg-slate-950/80 border border-slate-700 p-4 text-slate-100 text-sm">Baue mir eine persönliche Singlepage-Pitch-HTML für einen lokalen Betrieb.
+
+Ziel: Ich will zeigen dass ich den Betrieb verstanden habe und einen kleinen KI-/Automation-Prototypen liefern kann.
+
+Struktur:
+1. Betrieb kurz spiegeln
+2. Online sichtbare Probleme nennen
+3. Honey Pot: wie es besser aussehen könnte
+4. Mini-Demo real zeigen
+5. kleines Angebot: Gespräch / Audit / Mini-Pilot
+
+Wichtig: keine generische Agentur-Sprache. Schreibe aus meiner Ich-Perspektive, direkt, menschlich und nicht overpolished.</textarea></div>
+      </section>
+    </main>
+  </div>
+
+  <script>
+    const tabs=[...document.querySelectorAll('.tab')];
+    const panels=[...document.querySelectorAll('.panel')];
+    const checks=[...document.querySelectorAll('input[type="checkbox"][data-key]')];
+    function showTab(id){panels.forEach(p=>p.classList.toggle('hidden',p.id!==id));tabs.forEach(t=>{const active=t.dataset.tab===id;t.classList.toggle('tab-active',active);t.classList.toggle('text-slate-300',!active)});localStorage.setItem('jannis_aiops_tab_v3',id)}
+    tabs.forEach(t=>t.addEventListener('click',()=>showTab(t.dataset.tab)));
+    checks.forEach(c=>{const key='jannis_aiops_'+c.dataset.key;c.checked=localStorage.getItem(key)==='1';c.addEventListener('change',()=>{localStorage.setItem(key,c.checked?'1':'0');updateProgress()})});
+    function updateProgress(){const total=checks.length;const done=checks.filter(c=>c.checked).length;const pct=total?Math.round(done/total*100):0;document.getElementById('progress').style.width=pct+'%';document.getElementById('progressText').textContent=done+' / '+total+' erledigt · '+pct+'%'}
+    document.querySelectorAll('[data-reset="all"]').forEach(b=>b.addEventListener('click',()=>{checks.forEach(c=>{c.checked=false;localStorage.removeItem('jannis_aiops_'+c.dataset.key)});updateProgress()}));
+    showTab(localStorage.getItem('jannis_aiops_tab_v3')||'overview');
+    updateProgress();
+  </script>
+</body>
+</html>
